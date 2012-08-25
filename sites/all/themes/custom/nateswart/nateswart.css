@@ -1,0 +1,30 @@
+body{
+  background-image: url('background.jpg');
+  background-repeat: no-repeat;
+  background-position-y: 30px;
+  background-color: #000;
+}
+
+.subpage  {
+  background-color: #fff;
+  top: 100px;
+  
+}
+
+.hero-unit {
+  background-color: #ffffff;
+  margin-top: 30px;
+}
+
+h4 {
+  margin-top: 20px;
+  margin-bottom: 2px;
+}
+
+.img-project {
+  margin-right: 15px;
+  height: 75px;
+}
+.navbar-fixed-top, .navbar-fixed-bottom {
+ 
+}
