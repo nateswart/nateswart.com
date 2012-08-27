@@ -17,10 +17,10 @@ function nateswart_form_contact_site_form_alter(&$form, &$form_state, $form_id) 
   
 
   // Modify the contact page
-  $form['#prefix'] = '<div class="row"><div class="span4"><p>Find me on:<br>
+  $form['#prefix'] = '<div class="row"><div class="span4"><p>Find me on:</p>
   <a href="http://twitter.com/nateswart" class="sb twitter">Twitter</a> <small>Twitter</small><br>
-  <a href="http://www.linkedin.com/in/nateswart" class="sb linkedin">LinkedIn</a> <small>Linked In</small><br><hr>
-</p></div><div class="span6">';
+  <a href="http://www.linkedin.com/in/nateswart" class="sb linkedin">LinkedIn</a> <small>Linked In</small><hr>
+</div><div class="span6"><p>Send me email:</p>';
   $form['#suffix'] = '</div></div>';
 }
 
