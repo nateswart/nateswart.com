@@ -12,7 +12,6 @@ stylesheets[all][] = bootstrap/css/bootstrap-responsive.css
 stylesheets[all][] = css-social-buttons/social-buttons.css
 stylesheets[all][] = nateswart.css
 
-scripts[] = bootstrap/js/jquery-1.7.2.min.js
 scripts[] = bootstrap/js/bootstrap.js
 scripts[] = bootstrap/js/bootstrap-transition.js
 scripts[] = bootstrap/js/bootstrap-alert.js
