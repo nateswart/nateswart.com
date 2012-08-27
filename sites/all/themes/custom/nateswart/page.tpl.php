@@ -4,7 +4,10 @@
   <h1><?php print $title; ?></h1>
 
   <div class="hero-unit">
-  <?php print render($page['content']); ?>
+  <?php 
+    print $messages;
+    print render($page['content']); 
+  ?>
   </div>
 
 </div> <!-- /container -->
