@@ -32,3 +32,17 @@ h4 {
   background-color: #ffffff;
   border-top: none;
 }
+
+
+/* CSS Button additions */
+a.sb.drupal {
+  background-image: url(css-social-buttons-extra/drupal.png);
+}
+
+a.sb.github {
+  background-image: url(css-social-buttons-extra/github.png);
+}
+
+a.sb.flickr {
+  background-image: url(css-social-buttons-extra/flickr.png);
+}

@@ -6,8 +6,9 @@
 <p class="lead">Senior Drupal Application Developer</p>
 <p>
   <?php print $messages; ?>
-  <a href="http://twitter.com/nateswart" class="sb twitter">Twitter</a>
-  <a href="http://www.linkedin.com/in/nateswart" class="sb linkedin">LinkedIn</a>
+  <a href="http://twitter.com/nateswart" class="sb text twitter">Twitter</a>
+  <a href="http://www.linkedin.com/in/nateswart" class="sb text linkedin">LinkedIn</a>
+  <a href="contact/">more ...</a>
 </p>
 
 </div> <!-- /container -->
