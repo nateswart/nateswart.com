@@ -42,7 +42,11 @@ function nateswart_css_alter(&$css) {
   unset($css[drupal_get_path('module','system').'/system.theme.css']); 
 }
 
-
+/**
+ * Set the title to the active site section
+ * 
+ * @return the title to use for the current page
+ */
 function nateswart_get_display_title() {
   $trail = menu_get_active_trail();
   return $trail[1]['link_title'];

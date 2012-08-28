@@ -1,0 +1,3 @@
+name = "Nate Swart Site"
+description = "Implementation details for nateswart.com"
+core = 7.x
