@@ -48,6 +48,11 @@ function nateswart_css_alter(&$css) {
  * @return the title to use for the current page
  */
 function nateswart_get_display_title() {
+  $retval = '';
   $trail = menu_get_active_trail();
-  return $trail[1]['link_title'];
+  
+  if(isset($trail[1]['link_title'])) {
+    $retval = $trail[1]['link_title'];
+  }
+  return $retval;
 }
