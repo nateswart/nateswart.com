@@ -1,4 +1,6 @@
-<?php include_once('navbar.inc');?>
+<?php 
+
+include_once('navbar.inc');?>
 
 <div class="container">
   <h1><?php print nateswart_get_display_title(); ?></h1>
