@@ -2,19 +2,26 @@
 
 <div class="row">
 
-  <div class="lead span7">
+  <div class="lead span5">
   <?php print render($content['field_short_description']); ?>
   </div>
   
-  <div class="span3">
+  <div class="span5">
   
   <div id="myCarousel" class="carousel slide">
   <!-- Carousel items -->
   <div class="carousel-inner">
     <?php
+      $count = 0;
+      
       foreach($content['field_images']['#items'] as $image) {
-        $imgurl = image_style_url('large', $image['uri']);
-        print '<div class="item"><img src="' . $imgurl . '" class="img-polaroid img-project pull-left"></div>';
+        $imgurl = image_style_url('medium', $image['uri']);
+        print '<div class="item';
+        if(0 == $count) {
+          print ' active';
+        }
+        print '"><img src="' . $imgurl . '" class="pull-left"></div>';
+        $count++;
       }
     ?>
   </div>
