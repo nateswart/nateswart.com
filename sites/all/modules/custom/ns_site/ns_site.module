@@ -4,15 +4,25 @@
  * Implements hook_menu()
  */
 function ns_site_menu() {
-	$items = array();
-	
-	$items['projects'] = array (
-		'type' => MENU_CALLBACK,
-		'title' => t('Projects'),
-		'page callback' => 'ns_site_projects',
-		'access arguments' => array('access content'),
-		'file' => 'ns_site.projects.inc',
-	);
+  $items = array();
+  
+  $items['projects'] = array (
+    'type' => MENU_CALLBACK,
+    'title' => t('Projects'),
+    'page callback' => 'ns_site_projects',
+    'access arguments' => array('access content'),
+    'file' => 'ns_site.projects.inc',
+  );
+ 
+  $items['professional'] = array (
+    'type' => MENU_CALLBACK,
+    'title' => t('Professional'),
+    'page callback' => 'ns_site_professional',
+    'access arguments' => array('access content'),
+    'file' => 'ns_site.professional.inc',
+  ); 
+  
 
-	return $items;
+  return $items;
 }
+
