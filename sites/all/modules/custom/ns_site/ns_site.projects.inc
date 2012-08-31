@@ -15,8 +15,8 @@ function ns_site_projects() {
   $query->join('field_data_field_short_description', 'short', 'n.nid = short.entity_id');
   $query->addField('short', 'field_short_description_value');
 
-  $query->join('field_data_field_images', 'images', 'n.nid = images.entity_id');
-  $query->join('file_managed', 'files', 'images.field_images_fid = files.fid');
+  $query->leftJoin('field_data_field_images', 'images', 'n.nid = images.entity_id');
+  $query->leftJoin('file_managed', 'files', 'images.field_images_fid = files.fid');
   $query->addField('files', 'uri');
 
   $results = $query->execute();
