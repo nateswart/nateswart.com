@@ -5,7 +5,9 @@
  */
 function ns_site_projects() {
   $content_array = array();
-  $retval = '<div class="lead">A collection of some of the recent projects I have worked on</div>';
+  $retval = '<div class="lead">';
+  $retval .= t('A collection of some of the recent projects I have worked on');
+  $retval .= '</div>';
   
   $query = db_select('node', 'n')
     ->fields('n', array('nid', 'title'))
