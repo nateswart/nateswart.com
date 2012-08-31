@@ -39,7 +39,14 @@ function ns_site_projects() {
     $style = 'thumbnail';  // or any other custom image style you've created via /admin/config/media/image-styles
     $imgurl = image_style_url($style, $project->uri);
 
-    $retval .= '<p><img src="' . $imgurl . '" class="img-polaroid img-project pull-left">' . $project->field_short_description_value . '</p>';
+    $retval .= '<p>';
+    
+    if(isset($project->uri)) {
+      $retval .= '<img src="' . $imgurl . '" class="img-polaroid img-project pull-left">';
+    }
+    
+    $retval .= $project->field_short_description_value;
+    $retval .= '</p>';
     
     $path = 'node/' . $project->nid;
     if(drupal_lookup_path('alias', $path)) {
