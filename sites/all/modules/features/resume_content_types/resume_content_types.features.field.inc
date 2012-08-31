@@ -575,7 +575,7 @@ function resume_content_types_field_default_fields() {
             'image_style' => '',
           ),
           'type' => 'image',
-          'weight' => 2,
+          'weight' => '2',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -646,11 +646,11 @@ function resume_content_types_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'hidden',
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => 1,
+          'weight' => '1',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -664,7 +664,7 @@ function resume_content_types_field_default_fields() {
       'label' => 'Long description',
       'required' => 0,
       'settings' => array(
-        'text_processing' => '0',
+        'text_processing' => '1',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -675,6 +675,89 @@ function resume_content_types_field_default_fields() {
         ),
         'type' => 'text_textarea',
         'weight' => '-3',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-project-field_project_homepage'.
+  $fields['node-project-field_project_homepage'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_project_homepage',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'locked' => '0',
+      'module' => 'link',
+      'settings' => array(
+        'attributes' => array(
+          'class' => '',
+          'rel' => '',
+          'target' => 'default',
+        ),
+        'display' => array(
+          'url_cutoff' => 80,
+        ),
+        'enable_tokens' => 1,
+        'title' => 'optional',
+        'title_maxlength' => 128,
+        'title_value' => '',
+        'url' => 0,
+      ),
+      'translatable' => '0',
+      'type' => 'link_field',
+    ),
+    'field_instance' => array(
+      'bundle' => 'project',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'hidden',
+          'module' => 'link',
+          'settings' => array(),
+          'type' => 'link_url',
+          'weight' => '3',
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_project_homepage',
+      'label' => 'Project homepage',
+      'required' => 0,
+      'settings' => array(
+        'attributes' => array(
+          'class' => '',
+          'configurable_title' => 0,
+          'rel' => '',
+          'target' => 'default',
+          'title' => '',
+        ),
+        'display' => array(
+          'url_cutoff' => '80',
+        ),
+        'enable_tokens' => 1,
+        'title' => 'optional',
+        'title_maxlength' => '128',
+        'title_value' => '',
+        'url' => 0,
+        'user_register_form' => FALSE,
+        'validate_url' => 1,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'link',
+        'settings' => array(),
+        'type' => 'link_field',
+        'weight' => '31',
       ),
     ),
   );
@@ -715,11 +798,11 @@ function resume_content_types_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'hidden',
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => 0,
+          'weight' => '0',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1041,6 +1124,7 @@ function resume_content_types_field_default_fields() {
   t('Location');
   t('Long description');
   t('Project');
+  t('Project homepage');
   t('Recommender title');
   t('Short description');
   t('Short version');
