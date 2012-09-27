@@ -17,11 +17,11 @@ function ns_site_professional() {
     '#type' => 'markup', 
     '#prefix' => '<div class="lead span4">',
     '#suffix' => '</div>',
-    '#markup' =>  t('I am a software engineer focused on open source web-based technologies - specifically '),
+    '#markup' =>  t('I am a software engineer focused on open source web-based technologies.'),
   );
   
   //! TODO: Get tags for overview
-  $page_content['top']['overview']['#markup'] .= '[load tags]';
+  //$page_content['top']['overview']['#markup'] .= '[load tags]';
 
     
   $page_content['top']['recommendation'] = array(
@@ -46,13 +46,14 @@ function ns_site_professional() {
   );
   
   //! TODO: Add a link
+  /**
   $page_content['top']['recommendation']['more'] = array(
     '#type' => 'markup', 
     '#prefix' => '<button class="btn btn-small pull-right" type="button">',
     '#suffix' => '</button>',
     '#markup' => t('View all recommendations'),
   );
-  
+  */
   
   $page_content[] = array('#markup' => '<hr/>');
   
@@ -117,6 +118,7 @@ function ns_site_professional() {
     '#items' => array(
       'Chautauqua Leadership Network', 
       'Lehigh Valley Drupal Users Group (founder)',
+      'Individual member of the Drupal Association',
     ),
     '#theme' => 'item_list',
   );
@@ -136,7 +138,7 @@ function ns_site_professional() {
     '#prefix' => '<div class="span10">',
     '#suffix' => '</div>',
   );
-  
+  /**
   $page_content['bottom']['experience']['header'] = array(
     '#type' => 'markup', 
     '#prefix' => '<h2>',
@@ -144,7 +146,7 @@ function ns_site_professional() {
     '#markup' => t('Experience'),
   ); 
   
-  //! TODO: Get experience
+  //! TODO: Get experiences from object model
   $page_content['bottom']['experience']['rodale']['intro'] = array(
     '#type' => 'markup', 
     '#prefix' => '<h4>',
@@ -163,7 +165,14 @@ function ns_site_professional() {
     ),
     '#theme' => 'item_list',
   );
+  */
   
+  $page_content['experience']['linkedin'] = array(
+    '#type' => 'markup',
+    '#prefix' => '<div class="span13 pull-right">',
+    '#suffix' => '</div>',
+    '#markup' => 'Until this page is complete, you may like to <a href="http://www.linkedin.com/in/nateswart">view my full LinkedIn profile</a>',
+  );
  
   return $page_content; 
 }
