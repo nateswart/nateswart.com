@@ -38,4 +38,9 @@
   
 </div>
 
-<?php print render($content['field_long_description']); ?>
+
+<div class="row">
+  <div>
+    <?php print render($content['field_long_description']); ?>
+  </div>
+</div>

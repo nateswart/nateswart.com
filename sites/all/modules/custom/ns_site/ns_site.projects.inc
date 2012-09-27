@@ -4,10 +4,14 @@
  * Creates the projects page
  */
 function ns_site_projects() {
-  $content_array = array();
-  $retval = '<div class="lead">';
-  $retval .= t('A collection of some of the recent projects I have worked on');
-  $retval .= '</div>';
+  $page_content = array();
+  
+  $page_content['intro'] = array(
+    '#type' => 'markup', 
+    '#prefix' => '<div>',
+    '#suffix' => '</div>',
+    '#markup' => t("A collection of some of the recent projects I've worked on:"),
+  );
   
   $query = db_select('node', 'n')
     ->fields('n', array('nid', 'title'))
@@ -25,44 +29,69 @@ function ns_site_projects() {
   $projects = $results->fetchAllAssoc('nid');
   
   $count = 0;
+  $row_num = 0;
+  $row_name = 'row' . $row_num;
   
   foreach($projects as $project) {
     
     if($count % 2 == 0) {
       // Create a new row
-      $retval .= '<div class="row">';
+      $page_content[$row_name] = array(
+        '#type' => 'markup', 
+        '#prefix' => '<div class="row">',
+        '#suffix' => '</div>',
+      );
     }
     
-    $retval .= '<div class="span5">';
-    $retval .= '<h2>' . $project->title . '</h2>';
-
-    $style = 'thumbnail';  // or any other custom image style you've created via /admin/config/media/image-styles
-    $imgurl = image_style_url($style, $project->uri);
-
-    $retval .= '<p>';
+    $page_content[$row_name]['project' . $count] = array(
+      '#type' => 'markup', 
+      '#prefix' => '<div class="span5">',
+      '#suffix' => '</div>',
+    );
+    
+    $page_content[$row_name]['project' . $count]['title'] = array(
+      '#type' => 'markup', 
+      '#prefix' => '<h2>',
+      '#suffix' => '</h2>',
+      '#markup' => $project->title,
+    );
+  
+    $page_content[$row_name]['project' . $count]['info'] = array(
+      '#type' => 'markup', 
+      '#prefix' => '<p>',
+      '#suffix' => '</p>',
+      '#markup' => $project->field_short_description_value,
+    );
     
     if(isset($project->uri)) {
-      $retval .= '<img src="' . $imgurl . '" class="img-polaroid img-project pull-left">';
+      $imgurl = image_style_url('thumbnail', $project->uri);
+      $page_content[$row_name]['project' . $count]['title'] = array(
+        '#type' => 'markup', 
+        '#prefix' => '<h2>',
+        '#suffix' => '</h2>',
+        '#markup' => $project->title,
+      );
     }
-    
-    $retval .= $project->field_short_description_value;
-    $retval .= '</p>';
     
     $path = 'node/' . $project->nid;
     if(drupal_lookup_path('alias', $path)) {
       $path = drupal_lookup_path('alias', $path);
     }
     
-    $retval .= '<p><a class="btn btn-small" href="' . $path . '">View details »</a></p>';
-    $retval .= '</div>';
+    $page_content[$row_name]['project' . $count]['more'] = array(
+      '#type' => 'markup', 
+      '#prefix' => '<p>',
+      '#suffix' => '</p>',
+      '#markup' => '<a class="btn btn-small" href="' . $path . '">View details »</a>',
+    );
     
     if($count % 2 != 0) {
-      // End the row
-      $retval .= '</div>';
+      $row_num++;
+      $row_name = 'row' . $row_num;
     }
     
     $count++;
   }
   
-  return $retval;
+  return $page_content;
 }
