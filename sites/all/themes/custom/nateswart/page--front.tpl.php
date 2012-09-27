@@ -1,11 +1,24 @@
 <?php include_once('navbar.inc');?>
 
 <div class="container">
-
-<h1>Nate Swart</h1>
-<p class="lead">Senior Drupal Application Developer</p>
-<p>
-  <?php print $messages; ?>
-</p>
+  
+  
+  <div class="row">
+    <div class="span6">
+      <h1>Nate Swart</h1>
+      <p class="lead">Senior Drupal Application Developer</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span3 muted">
+      <small>
+        I am an <a href="https://association.drupal.org/membership">individual member</a> of the <a href="https://association.drupal.org/">Drupal Association</a>, which fosters and supports the Drupal software project, the community and its growth.
+      </small>
+    </div>
+  </div>
+  
+  <p>
+    <?php print $messages; ?>
+  </p>
 
 </div> <!-- /container -->
