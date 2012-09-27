@@ -6,6 +6,7 @@
 function ns_site_menu() {
   $items = array();
   
+  /**
   $items['projects'] = array (
     'type' => MENU_CALLBACK,
     'title' => t('Projects'),
@@ -21,8 +22,8 @@ function ns_site_menu() {
     'access arguments' => array('access content'),
     'file' => 'ns_site.professional.inc',
   ); 
+  */
   
-
   return $items;
 }
 
