@@ -20,7 +20,7 @@ function ns_site_professional() {
     '#markup' =>  t('I am a software engineer focused on open source web-based technologies.'),
   );
   
-  //! TODO: Get tags for overview
+  //TODO: Get tags for overview
   //$page_content['top']['overview']['#markup'] .= '[load tags]';
 
     
@@ -30,30 +30,98 @@ function ns_site_professional() {
     '#suffix' => '</blockquote></div>',
   );
   
-  //! TODO: Get random recommendation
-  $page_content['top']['recommendation']['body'] = array(
-    '#type' => 'markup', 
-    '#prefix' => '<p>',
-    '#suffix' => '</p>',
-    '#markup' => '“Nate always exceeded the expectations of Product Management. His attention to detail and desire to deliver quality product, made him a great asset to the company.”',
-  );
+  $recommendations = ns_site_professional_getrecommendations();
   
-  $page_content['top']['recommendation']['credit'] = array(
-    '#type' => 'markup', 
-    '#prefix' => '<small>',
-    '#suffix' => '</small>',
-    '#markup' => 'Erik Larson, Lenel Systems International',
-  );
+  if($recommendations) {
+    $featured_id = array_rand($recommendations, 1);
+    
+    $page_content['top']['recommendation']['body'] = array(
+      '#type' => 'markup', 
+      '#prefix' => '<p>',
+      '#suffix' => '</p>',
+      '#markup' => '“' . $recommendations[$featured_id]->field_short_version_value . '”',
+    );
+    
+    $page_content['top']['recommendation']['credit'] = array(
+      '#type' => 'markup', 
+      '#prefix' => '<small>',
+      '#suffix' => '</small>',
+      '#markup' => $recommendations[$featured_id]->title 
+        . ', ' . $recommendations[$featured_id]->field_recommender_title_value
+        . ' (' . $recommendations[$featured_id]->field_recommender_company_value . ')',
+    );
+    
+    $page_content['top']['recommendation']['more'] = array(
+      '#type' => 'markup', 
+      '#prefix' => '<a data-target="#recommendationsModal" class="btn btn-small pull-right" data-toggle="modal">',
+      '#suffix' => '</a>',
+      '#markup' => t('View all recommendations'),
+    );
+    
+    
+    // Build the mobile dialog for listing all recommendations
+    $page_content['top']['recommendation']['modal'] = array(
+      '#type' => 'markup',
+      '#prefix' => '<div class="modal fade" id="recommendationsModal" tabindex="-1">',
+      '#suffix' => '</div>',
+    );
+
+    $page_content['top']['recommendation']['modal']['header'] = array(
+      '#type' => 'markup',
+      '#prefix' => '<div class="modal-header"><h4>',
+      '#suffix' => '</h4></div>',
+      '#markup' => t('Recommendations'),
+    );
+    
+    
+    $page_content['top']['recommendation']['modal']['body'] = array(
+      '#type' => 'markup',
+      '#prefix' => '<div class="modal-body">',
+      '#suffix' => '</div>',
+    );
+    
+    foreach($recommendations as $rec) {
+      $recommendation = array(
+        '#type' => 'markup',
+        '#prefix' => '<div>',
+        '#suffix' => '</div>',
+      );
+      
+      $recommendation['entry'] = array(
+        '#type' => 'markup',
+        '#prefix' => '<blockquote>"',
+        '#suffix' => '"</blockquote>',
+        '#markup' => $rec->field_full_version_value,
+      );
+      
+      $recommendation['credit'] = array(
+        '#type' => 'markup', 
+        '#prefix' => '<small>',
+        '#suffix' => '</small>',
+        '#markup' => $rec->title 
+          . ', ' . $rec->field_recommender_title_value
+          . ' (' . $rec->field_recommender_company_value . ')',
+      );
+      
+      $recommendation[] = array('#markup' => '<hr/>');
+      
+      $page_content['top']['recommendation']['modal']['body'][] = $recommendation;
+    }
+    
+    $page_content['top']['recommendation']['modal']['footer'] = array(
+      '#type' => 'markup',
+      '#prefix' => '<div class="modal-footer">',
+      '#suffix' => '</div>',
+    );
+    
+    $page_content['top']['recommendation']['modal']['footer']['closebutton'] = array(
+      '#type' => 'item',
+      '#prefix' => '<button class="btn btn-inverse" data-dismiss="modal">',
+      '#suffix' => '</button>',
+      '#markup' => t('Close'),
+    );
+  }
   
-  //! TODO: Add a link
-  /**
-  $page_content['top']['recommendation']['more'] = array(
-    '#type' => 'markup', 
-    '#prefix' => '<button class="btn btn-small pull-right" type="button">',
-    '#suffix' => '</button>',
-    '#markup' => t('View all recommendations'),
-  );
-  */
   
   $page_content[] = array('#markup' => '<hr/>');
   
@@ -78,7 +146,7 @@ function ns_site_professional() {
     '#markup' => t('Education'),
   );
   
-  //! TODO: Display education dynamically
+  //TODO: Display education dynamically
   $page_content['middle']['education']['rit']['name'] = array(
     '#type' => 'markup',
     '#prefix' => '<h4>',
@@ -176,6 +244,34 @@ function ns_site_professional() {
 }
 
 
+function ns_site_professional_getrecommendations() {
+  $query = db_select('node', 'n')
+    ->fields('n', array('nid', 'title'))
+    ->condition('type', 'recommendation')
+    ->condition('status', 1);
+    
+  // Recommender title
+  $query->join('field_data_field_recommender_title', 'rec_title', 'n.nid = rec_title.entity_id');
+  $query->addField('rec_title', 'field_recommender_title_value');
+  
+  // Recommender company
+  $query->join('field_data_field_recommender_company', 'rec_comp', 'n.nid = rec_comp.entity_id');
+  $query->addField('rec_comp', 'field_recommender_company_value');
+  
+  // Short version
+  $query->join('field_data_field_short_version', 'short_version', 'n.nid = short_version.entity_id');
+  $query->addField('short_version', 'field_short_version_value');
+  
+  // Full version
+  $query->join('field_data_field_full_version', 'full_version', 'n.nid = full_version.entity_id');
+  $query->addField('full_version', 'field_full_version_value');
+  
+  $results = $query->execute();
+  $records = $results->fetchAllAssoc('nid');
+  
+  return $records;
+}
+
 function ns_site_professional_getorgs() {
   $query = db_select('node', 'n')
     ->fields('n', array('nid', 'title'))
@@ -194,13 +290,13 @@ function ns_site_professional_getorgs() {
   $results = $query->execute();
   $records = $results->fetchAllAssoc('nid');
   
-  $retval = array();
+  $orgs = array();
   
   foreach($records as $group) {
     $link = l($group->field_website_title, $group->field_website_url);
     $note = t('<small class="muted">(@note)</small>', array('@note' => $group->field_note_value));
-    $retval[] = $link . ' ' . $note;
+    $orgs[] = $link . ' ' . $note;
   }
 
-  return $retval;
+  return $orgs;
 }

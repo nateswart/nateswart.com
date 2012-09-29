@@ -13,15 +13,3 @@ stylesheets[all][] = css-social-buttons/social-buttons.css
 stylesheets[all][] = nateswart.css
 
 scripts[] = bootstrap/js/bootstrap.js
-scripts[] = bootstrap/js/bootstrap-transition.js
-scripts[] = bootstrap/js/bootstrap-alert.js
-scripts[] = bootstrap/js/bootstrap-modal.js
-scripts[] = bootstrap/js/bootstrap-dropdown.js
-scripts[] = bootstrap/js/bootstrap-scrollspy.js
-scripts[] = bootstrap/js/bootstrap-tab.js
-scripts[] = bootstrap/js/bootstrap-tooltip.js
-scripts[] = bootstrap/js/bootstrap-popover.js
-scripts[] = bootstrap/js/bootstrap-button.js
-scripts[] = bootstrap/js/bootstrap-collapse.js
-scripts[] = bootstrap/js/bootstrap-carousel.js
-scripts[] = bootstrap/js/bootstrap-typeahead.js
