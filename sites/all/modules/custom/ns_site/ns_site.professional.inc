@@ -114,12 +114,6 @@ function ns_site_professional() {
   );
     
   // Display groups/organizations  
-  $groups = array(
-    l('Chautauqua Leadership Network', 'http://www.google.com'), 
-    l('Lehigh Valley Drupal Users Group', 'http://www.google.com') . ' (founder)',
-    'Individual member of the Drupal Association',
-  );
-  
   $groups = ns_site_professional_getorgs();
   
   $page_content['middle']['groups']['list'] = array(
