@@ -114,14 +114,21 @@ function ns_site_professional() {
   );
     
   //! TODO: Display groups/organizations  
+  
+  $groups = array(
+    l('Chautauqua Leadership Network', 'http://www.google.com'), 
+    l('Lehigh Valley Drupal Users Group', 'http://www.google.com') . ' (founder)',
+    'Individual member of the Drupal Association',
+  );
+  
+  $groups = ns_site_professional_getorgs();
+  
   $page_content['middle']['groups']['list'] = array(
-    '#items' => array(
-      'Chautauqua Leadership Network', 
-      'Lehigh Valley Drupal Users Group (founder)',
-      'Individual member of the Drupal Association',
-    ),
+    '#items' => $groups,
     '#theme' => 'item_list',
   );
+  
+  
   
   $page_content[] = array('#markup' => '<hr/>');
   
@@ -175,4 +182,35 @@ function ns_site_professional() {
   );
  
   return $page_content; 
+}
+
+
+function ns_site_professional_getorgs() {
+  $query = db_select('node', 'n')
+    ->fields('n', array('nid', 'title'))
+    ->condition('type', 'professional_organization')
+    ->condition('status', 1);
+  
+  // Website
+  $query->join('field_data_field_website', 'website', 'n.nid = website.entity_id');
+  $query->addField('website', 'field_website_title');
+  $query->addField('website', 'field_website_url');
+  
+  // Note
+  $query->join('field_data_field_note', 'note', 'n.nid = note.entity_id');
+  $query->addField('note', 'field_note_value');
+  
+  $results = $query->execute();
+  $records = $results->fetchAllAssoc('nid');
+  
+  $retval = array();
+  
+  foreach($records as $group) {
+    $link = l($group->field_website_title, $group->field_website_url);
+    $note = t('(@note)', array('@note' => $group->field_note_value));
+    
+    $retval[] = $link . ' ' . $note;
+  }
+  
+  return $retval;
 }

@@ -33,6 +33,14 @@ function resume_content_types_node_info() {
       'title_label' => t('Task'),
       'help' => '',
     ),
+    'professional_organization' => array(
+      'name' => t('Professional organization'),
+      'base' => 'node_content',
+      'description' => t('A group or professional organization'),
+      'has_title' => '1',
+      'title_label' => t('Name'),
+      'help' => '',
+    ),
     'project' => array(
       'name' => t('Project'),
       'base' => 'node_content',
