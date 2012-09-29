@@ -68,8 +68,8 @@ function ns_site_professional() {
 
     $page_content['top']['recommendation']['modal']['header'] = array(
       '#type' => 'markup',
-      '#prefix' => '<div class="modal-header"><h4>',
-      '#suffix' => '</h4></div>',
+      '#prefix' => '<div class="modal-header"><h3>',
+      '#suffix' => '</h3></div>',
       '#markup' => t('Recommendations'),
     );
     
