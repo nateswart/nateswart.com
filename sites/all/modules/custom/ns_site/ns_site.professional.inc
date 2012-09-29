@@ -204,10 +204,9 @@ function ns_site_professional_getorgs() {
   
   foreach($records as $group) {
     $link = l($group->field_website_title, $group->field_website_url);
-    $note = t('(@note)', array('@note' => $group->field_note_value));
-    
+    $note = t('<small class="muted">(@note)</small>', array('@note' => $group->field_note_value));
     $retval[] = $link . ' ' . $note;
   }
-  
+
   return $retval;
 }
