@@ -67,9 +67,10 @@ function ns_site_professional() {
     
     
     // Build the mobile dialog for listing all recommendations
+    //TODO: Apparently the bootstrap modal doesn't work on mobile?
     $page_content['top']['recommendation']['modal'] = array(
       '#type' => 'markup',
-      '#prefix' => '<div class="modal fade" id="recommendationsModal" tabindex="-1">',
+      '#prefix' => '<div class="modal fade" id="recommendationsModal" tabindex="-1" style="display: none;">',
       '#suffix' => '</div>',
     );
 
