@@ -44,6 +44,8 @@ function ns_site_professional() {
     
     $page_content['top']['recommendation']['body']['quote'] = array(
       '#type' => 'markup',
+      '#prefix' => '<span class="lead">',
+      '#suffix' => '</span>',
       '#markup' => '“' . $recommendations[$featured_id]->field_short_version_value . '”',
     );
     
