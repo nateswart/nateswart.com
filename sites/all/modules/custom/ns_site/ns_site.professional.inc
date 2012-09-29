@@ -146,27 +146,43 @@ function ns_site_professional() {
     '#markup' => t('Education'),
   );
   
-  //TODO: Display education dynamically
-  $page_content['middle']['education']['rit']['name'] = array(
-    '#type' => 'markup',
-    '#prefix' => '<h4>',
-    '#suffix' => '</h4>',
-    '#markup' => 'Rochester Institute of Technology',
-  );
   
-  $page_content['middle']['education']['rit']['degree'] = array(
-    '#type' => 'markup',
-    '#markup' => 'Bachelor of Science in Information Technology',
-  );
+  //TODO: I need to rethink this education section
+  $education = ns_site_professional_geteducation();
   
-  $page_content['middle']['education']['rit']['info'] = array(
-    '#items' => array(
-      '1996-2000', 
-      'IT Student Organization President',
-      'Undergraduate commencement speaker',
-    ),
-    '#theme' => 'item_list',
-  );
+  foreach($education as $edu) {
+    
+    $edu_entry = array(
+      '#type' => 'markup',
+      '#prefix' => '<div>',
+      '#suffix' => '</div>',
+    );
+    
+    $edu_entry['name'] = array(
+      '#type' => 'markup',
+      '#prefix' => '<h4>',
+      '#suffix' => '</h4>',
+      '#markup' => $edu->title,
+    );
+    
+    //TODO: I know there's a better way to output fields
+    $edu_entry['degree'] = array(
+      '#type' => 'markup',
+      '#markup' => $edu->field_degree[$edu->language][0]['safe_value'] . ', ' . $edu->field_graduation_year[$edu->language][0]['safe_value'],
+    );
+    
+    $details = array();
+    foreach($edu->field_details[$edu->language] as $detail) {
+      $details[] = $detail['safe_value'];
+    }
+    
+    $edu_entry['info'] = array(
+      '#items' => $details,
+      '#theme' => 'item_list',
+    );
+    
+    $page_content['middle']['education'][] = $edu_entry;
+  }
   
   $page_content['middle']['groups'] = array(
     '#type' => 'markup',
@@ -204,34 +220,6 @@ function ns_site_professional() {
     '#prefix' => '<div class="span10">',
     '#suffix' => '</div>',
   );
-  /**
-  $page_content['bottom']['experience']['header'] = array(
-    '#type' => 'markup', 
-    '#prefix' => '<h2>',
-    '#suffix' => '</h2>',
-    '#markup' => t('Experience'),
-  ); 
-  
-  //! TODO: Get experiences from object model
-  $page_content['bottom']['experience']['rodale']['intro'] = array(
-    '#type' => 'markup', 
-    '#prefix' => '<h4>',
-    '#suffix' => '</h4>',
-    '#markup' => t('Senior Drupal Application Developer<small> - Rodale, Inc</small>'),
-  );
-  
-  $page_content['bottom']['experience']['rodale']['date'] = array(
-    '#type' => 'markup',
-    '#markup' => t('March 2012 - Current | Emmaus, PA'),
-  );
-  
-  $page_content['bottom']['experience']['rodale']['list'] = array(
-    '#items' => array(
-      'Technical lead overseeing migration of runnersworld.com from Vignette to Drupal',
-    ),
-    '#theme' => 'item_list',
-  );
-  */
   
   $page_content['experience']['linkedin'] = array(
     '#type' => 'markup',
@@ -271,6 +259,22 @@ function ns_site_professional_getrecommendations() {
   
   return $records;
 }
+
+
+function ns_site_professional_geteducation() {
+  $query = db_select('node', 'n')
+    ->fields('n', array('nid', 'title'))
+    ->condition('type', 'education')
+    ->condition('status', 1);
+  
+  $results = $query->execute();
+  $records = $results->fetchAllAssoc('nid');
+  
+  $nodes = node_load_multiple(array_keys($records));
+  
+  return $nodes;
+}
+
 
 function ns_site_professional_getorgs() {
   $query = db_select('node', 'n')
