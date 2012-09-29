@@ -33,6 +33,7 @@ function ns_site_professional() {
   $recommendations = ns_site_professional_getrecommendations();
   
   if($recommendations) {
+    //TODO: Need to move this client-side if I expect it to work after heavy caching
     $featured_id = array_rand($recommendations, 1);
     
     $page_content['top']['recommendation']['body'] = array(
