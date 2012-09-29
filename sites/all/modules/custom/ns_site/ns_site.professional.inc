@@ -26,8 +26,8 @@ function ns_site_professional() {
     
   $page_content['top']['recommendation'] = array(
     '#type' => 'markup', 
-    '#prefix' => '<div class="span6"><blockquote>',
-    '#suffix' => '</blockquote></div>',
+    '#prefix' => '<div class="span6">',
+    '#suffix' => '</div>',
   );
   
   $recommendations = ns_site_professional_getrecommendations();
@@ -38,12 +38,16 @@ function ns_site_professional() {
     
     $page_content['top']['recommendation']['body'] = array(
       '#type' => 'markup', 
-      '#prefix' => '<p>',
-      '#suffix' => '</p>',
+      '#prefix' => '<blockquote>',
+      '#suffix' => '</blockquote>',
+    );
+    
+    $page_content['top']['recommendation']['body']['quote'] = array(
+      '#type' => 'markup',
       '#markup' => '“' . $recommendations[$featured_id]->field_short_version_value . '”',
     );
     
-    $page_content['top']['recommendation']['credit'] = array(
+    $page_content['top']['recommendation']['body']['credit'] = array(
       '#type' => 'markup', 
       '#prefix' => '<small>',
       '#suffix' => '</small>',
@@ -116,7 +120,7 @@ function ns_site_professional() {
     );
     
     $page_content['top']['recommendation']['modal']['footer']['closebutton'] = array(
-      '#type' => 'item',
+      '#type' => 'markup',
       '#prefix' => '<button class="btn btn-inverse" data-dismiss="modal">',
       '#suffix' => '</button>',
       '#markup' => t('Close'),
