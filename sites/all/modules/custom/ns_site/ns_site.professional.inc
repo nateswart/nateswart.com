@@ -113,8 +113,7 @@ function ns_site_professional() {
     '#markup' => t('Groups'),
   );
     
-  //! TODO: Display groups/organizations  
-  
+  // Display groups/organizations  
   $groups = array(
     l('Chautauqua Leadership Network', 'http://www.google.com'), 
     l('Lehigh Valley Drupal Users Group', 'http://www.google.com') . ' (founder)',
@@ -127,8 +126,6 @@ function ns_site_professional() {
     '#items' => $groups,
     '#theme' => 'item_list',
   );
-  
-  
   
   $page_content[] = array('#markup' => '<hr/>');
   
