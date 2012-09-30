@@ -157,7 +157,7 @@ function ns_site_professional() {
   
   //TODO: I need to rethink this education section
   $education = ns_site_professional_geteducation();
-  
+
   foreach($education as $edu) {
     
     $edu_entry = array(
@@ -228,8 +228,66 @@ function ns_site_professional() {
     '#prefix' => '<div class="span10">',
     '#suffix' => '</div>',
   );
+  $page_content['bottom']['experience']['header'] = array(
+    '#type' => 'markup', 
+    '#prefix' => '<h2>',
+    '#suffix' => '</h2>',
+    '#markup' => t('Experience'),
+  ); 
   
-  $page_content['experience']['linkedin'] = array(
+  $employers = ns_site_professional_getemployers();
+  $experience = ns_site_professional_getexperience();
+  
+  dsm($employers);
+  
+  foreach($experience as $job) {
+    $job_entry = array(
+      '#type' => 'markup', 
+      '#prefix' => '<div>',
+      '#suffix' => '</div>',
+    );
+    
+    $employer_name = $employers[$job->field_employer_nid]->title;
+    
+    $job_entry['intro'] = array(
+      '#type' => 'markup', 
+      '#prefix' => '<h4>',
+      '#suffix' => '</h4>',
+      '#markup' => $job->title . '<small> - ' . $employer_name . '</small>',
+    );
+    
+    //TODO: Add location display
+    
+    $start_date = new DateTime($job->field_dates_value);
+    $start_date = $start_date->format('F Y');
+    
+    $end_date = new DateTime($job->field_dates_value2);
+    $end_date = $end_date->format('F Y');
+    
+    if($start_date === $end_date) {
+      $end_date = t('Current');
+    }
+    
+    $job_entry['date'] = array(
+    '#type' => 'markup',
+    '#markup' => $start_date . ' - ' . $end_date,
+  );
+    
+    $page_content['bottom']['experience'][] = $job_entry;
+  }
+  
+  /**  
+  $page_content['bottom']['experience']['rodale']['list'] = array(
+    '#items' => array(
+      'Technical lead overseeing migration of runnersworld.com from Vignette to Drupal',
+    ),
+    '#theme' => 'item_list',
+  );
+  */
+  
+  $page_content[] = array('#markup' => '<hr/>');
+  
+  $page_content['linkedin'] = array(
     '#type' => 'markup',
     '#prefix' => '<div class="span13 pull-right">',
     '#suffix' => '</div>',
@@ -311,4 +369,41 @@ function ns_site_professional_getorgs() {
   }
 
   return $orgs;
+}
+
+
+function ns_site_professional_getexperience() {
+  $query = db_select('node', 'n')
+    ->fields('n', array('nid', 'title'))
+    ->condition('type', 'job')
+    ->condition('status', 1);
+    
+  // Dates
+  $query->join('field_data_field_dates', 'dates', 'n.nid = dates.entity_id');
+  $query->addField('dates', 'field_dates_value');
+  $query->addField('dates', 'field_dates_value2');
+  $query->orderBy('field_dates_value', 'DESC');
+  
+  // Employer
+  $query->join('field_data_field_employer', 'emp', 'n.nid = emp.entity_id');
+  $query->addfield('emp', 'field_employer_nid');
+  
+  $results = $query->execute();
+  $records = $results->fetchAllAssoc('nid');
+  
+  //$nodes = node_load_multiple(array_keys($records));
+  
+  return $records;
+}
+
+function ns_site_professional_getemployers() {
+  $query = db_select('node', 'n')
+    ->fields('n', array('nid', 'title'))
+    ->condition('type', 'employer')
+    ->condition('status', 1);
+  
+  $results = $query->execute();
+  $records = $results->fetchAllAssoc('nid');
+  
+  return $records;
 }
