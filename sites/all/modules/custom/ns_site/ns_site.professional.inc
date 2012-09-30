@@ -238,7 +238,7 @@ function ns_site_professional() {
   $employers = ns_site_professional_getemployers();
   $experience = ns_site_professional_getexperience();
   
-  dsm($employers);
+  //dsm($employers);
   
   foreach($experience as $job) {
     $job_entry = array(
