@@ -269,21 +269,30 @@ function ns_site_professional() {
     }
     
     $job_entry['date'] = array(
-    '#type' => 'markup',
-    '#markup' => $start_date . ' - ' . $end_date,
-  );
+      '#type' => 'markup',
+      '#markup' => $start_date . ' - ' . $end_date,
+    );
+  
+    $tasks = ns_site_professional_getjobtasks($job->nid);
     
+    $task_list = array();
+    
+    foreach($tasks as $task) {
+      if($task->field_project_nid) {
+        $task_list[] = l($task->title, 'node/' . $task->field_project_nid);
+      }
+      else {
+        $task_list[] = $task->title;
+      }
+    } 
+    
+    $job_entry['list'] = array(
+      '#items' => $task_list,
+      '#theme' => 'item_list',
+    );
+        
     $page_content['bottom']['experience'][] = $job_entry;
   }
-  
-  /**  
-  $page_content['bottom']['experience']['rodale']['list'] = array(
-    '#items' => array(
-      'Technical lead overseeing migration of runnersworld.com from Vignette to Drupal',
-    ),
-    '#theme' => 'item_list',
-  );
-  */
   
   $page_content[] = array('#markup' => '<hr/>');
   
@@ -291,7 +300,7 @@ function ns_site_professional() {
     '#type' => 'markup',
     '#prefix' => '<div class="span13 pull-right">',
     '#suffix' => '</div>',
-    '#markup' => 'Until this page is complete, you may like to <a href="http://www.linkedin.com/in/nateswart">view my full LinkedIn profile</a>',
+    '#markup' => '<a href="http://www.linkedin.com/in/nateswart">View my LinkedIn profile</a>',
   );
  
   return $page_content; 
@@ -406,4 +415,28 @@ function ns_site_professional_getemployers() {
   $records = $results->fetchAllAssoc('nid');
   
   return $records;
+}
+
+function ns_site_professional_getjobtasks($job_id) {
+  $query = db_select('node', 'n')
+    ->fields('n', array('nid', 'title'))
+    ->condition('type', 'job_task')
+    ->condition('status', 1);
+  
+  // Job
+  $query->join('field_data_field_job', 'job', 'n.nid = job.entity_id');
+  $query->addfield('job', 'field_job_nid');
+  $query->condition('job.field_job_nid', $job_id);
+  
+  // Project link
+  $query->leftJoin('field_data_field_project', 'project', 'n.nid = project.entity_id');
+  $query->addfield('project', 'field_project_nid');
+  
+  
+  $results = $query->execute();
+  $records = $results->fetchAllAssoc('nid');
+  
+  
+  return $records;
+
 }
