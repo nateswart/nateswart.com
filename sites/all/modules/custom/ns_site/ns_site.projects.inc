@@ -58,7 +58,7 @@ function ns_site_projects() {
   
     $page_content[$row_name]['project' . $count]['info'] = array(
       '#type' => 'markup', 
-      '#prefix' => '<p>',
+      '#prefix' => '<p class="lead">',
       '#suffix' => '</p>',
       '#markup' => $project->field_short_description_value,
     );

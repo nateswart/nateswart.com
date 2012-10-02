@@ -9,7 +9,7 @@ function ns_site_professional() {
   /* Top row */
   $page_content['top'] = array(
     '#type' => 'markup', 
-    '#prefix' => '<div class="row-fluid">',
+    '#prefix' => '<div class="row">',
     '#suffix' => '</div>',
   );
 
@@ -26,7 +26,7 @@ function ns_site_professional() {
     
   $page_content['top']['recommendation'] = array(
     '#type' => 'markup', 
-    '#prefix' => '<div class="span7">',
+    '#prefix' => '<div class="span6">',
     '#suffix' => '</div>',
   );
   
@@ -78,7 +78,7 @@ function ns_site_professional() {
     $page_content['modal']['header'] = array(
       '#type' => 'markup',
       '#prefix' => '<div class="modal-header"><h3>',
-      '#suffix' => '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button></h3></div>',
+      '#suffix' => '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button></h3></div>',
       '#markup' => t('Recommendations'),
     );
     
@@ -137,13 +137,13 @@ function ns_site_professional() {
   /* Middle row */
   $page_content['middle'] = array(
     '#type' => 'markup', 
-    '#prefix' => '<div class="row-fluid">',
+    '#prefix' => '<div class="row">',
     '#suffix' => '</div>',
   );
   
   $page_content['middle']['education'] = array(
     '#type' => 'markup', 
-    '#prefix' => '<div class="span7">',
+    '#prefix' => '<div class="span6">',
     '#suffix' => '</div>',
   );
   
@@ -177,6 +177,8 @@ function ns_site_professional() {
     $edu_entry['degree'] = array(
       '#type' => 'markup',
       '#markup' => $edu->field_degree[$edu->language][0]['safe_value'] . ', ' . $edu->field_graduation_year[$edu->language][0]['safe_value'],
+      '#prefix' => '<p class="lead"><small>',
+      '#suffix' => '</small></p>',
     );
     
     $details = array();
@@ -194,7 +196,7 @@ function ns_site_professional() {
   
   $page_content['middle']['groups'] = array(
     '#type' => 'markup',
-    '#prefix' => '<div class="span4">',
+    '#prefix' => '<div class="span5">',
     '#suffix' => '</div>',
   );
   
@@ -219,7 +221,7 @@ function ns_site_professional() {
   /* Bottom row */
   $page_content['bottom'] = array(
     '#type' => 'markup', 
-    '#prefix' => '<div class="row-fluid">',
+    '#prefix' => '<div class="row">',
     '#suffix' => '</div>',
   );
   
@@ -238,25 +240,28 @@ function ns_site_professional() {
   $employers = ns_site_professional_getemployers();
   $experience = ns_site_professional_getexperience();
   
-  //dsm($employers);
-  
   foreach($experience as $job) {
     $job_entry = array(
       '#type' => 'markup', 
-      '#prefix' => '<div>',
+      '#prefix' => '<div class="span11 jobexperience">',
+      '#suffix' => '</div>',
+    );
+    
+    $job_entry['info'] = array(
+      '#type' => 'markup', 
+      '#prefix' => '<div class="pull-left span4">',
       '#suffix' => '</div>',
     );
     
     $employer_name = $employers[$job->field_employer_nid]->title;
-    
-    $job_entry['intro'] = array(
+        
+    $job_entry['info']['intro'] = array(
       '#type' => 'markup', 
       '#prefix' => '<h4>',
       '#suffix' => '</h4>',
-      '#markup' => $job->title . '<small> - ' . $employer_name . '</small>',
+      '#markup' => $job->title,
     );
     
-    //TODO: Add location display
     
     $start_date = new DateTime($job->field_dates_value);
     $start_date = $start_date->format('F Y');
@@ -268,11 +273,18 @@ function ns_site_professional() {
       $end_date = t('Current');
     }
     
-    $job_entry['date'] = array(
-      '#type' => 'markup',
-      '#markup' => $start_date . ' - ' . $end_date,
+    $job_entry['info']['details'] = array(
+      '#type' => 'markup', 
+      '#prefix' => '<p class="lead"><small>',
+      '#suffix' => '</small></p>',
+      '#markup' => $employer_name . '<br>' . $start_date . ' - ' . $end_date,
     );
-  
+    
+
+
+    
+    //TODO: Add location display
+      
     $tasks = ns_site_professional_getjobtasks($job->nid);
     
     $task_list = array();
@@ -289,6 +301,8 @@ function ns_site_professional() {
     $job_entry['list'] = array(
       '#items' => $task_list,
       '#theme' => 'item_list',
+      '#prefix' => '<div class="span6">',
+      '#suffix' => '</div>',
     );
         
     $page_content['bottom']['experience'][] = $job_entry;

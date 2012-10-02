@@ -21,6 +21,21 @@ https://github.com/twitter/bootstrap/issues/3230 */
   }
 }
 
+.ns_hero {
+  background-color: #ffffff;
+  padding: 15px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  margin-top: 50px;
+}
+
+.jobexperience {
+  border-bottom: 1px solid #eeeeee;
+  margin-bottom: 10px;
+  padding-bottom: 30px;
+}
+
 .subpage  {
   background-color: #fff;
   top: 100px;
