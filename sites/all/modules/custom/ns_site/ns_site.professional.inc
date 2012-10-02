@@ -307,15 +307,6 @@ function ns_site_professional() {
         
     $page_content['bottom']['experience'][] = $job_entry;
   }
-  
-  $page_content[] = array('#markup' => '<hr/>');
-  
-  $page_content['linkedin'] = array(
-    '#type' => 'markup',
-    '#prefix' => '<div class="span2 pull-right">',
-    '#suffix' => '</div>',
-    '#markup' => '<a href="http://www.linkedin.com/in/nateswart">View my LinkedIn profile</a>',
-  );
  
   return $page_content; 
 }
