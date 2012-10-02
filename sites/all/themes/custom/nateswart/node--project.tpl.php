@@ -1,8 +1,8 @@
 <h2><?php print $node->title; ?></h2>
 
-<div class="row">
+<div class="row-fluid">
 
-  <div class="lead span4">
+  <div class="lead span5">
   <?php 
     print render($content['field_short_description']); 
     print render($content['field_project_homepage']); 
@@ -10,7 +10,7 @@
   ?>
   </div>
   
-  <div class="span6">
+  <div class="span7">
   
   <?php
     if(isset($content['field_images']['#items'])) {
@@ -39,8 +39,8 @@
 </div>
 
 
-<div class="row">
-  <div>
+<div class="row-fluid">
+  <div class="span12">
     <?php print render($content['field_long_description']); ?>
   </div>
 </div>

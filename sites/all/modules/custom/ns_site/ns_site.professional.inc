@@ -9,13 +9,13 @@ function ns_site_professional() {
   /* Top row */
   $page_content['top'] = array(
     '#type' => 'markup', 
-    '#prefix' => '<div class="row">',
+    '#prefix' => '<div class="row-fluid">',
     '#suffix' => '</div>',
   );
 
   $page_content['top']['overview'] = array(
     '#type' => 'markup', 
-    '#prefix' => '<div class="lead span4">',
+    '#prefix' => '<div class="lead span5">',
     '#suffix' => '</div>',
     '#markup' =>  t('I am a software engineer focused on open source web-based technologies.'),
   );
@@ -26,7 +26,7 @@ function ns_site_professional() {
     
   $page_content['top']['recommendation'] = array(
     '#type' => 'markup', 
-    '#prefix' => '<div class="span6">',
+    '#prefix' => '<div class="span7">',
     '#suffix' => '</div>',
   );
   
@@ -137,13 +137,13 @@ function ns_site_professional() {
   /* Middle row */
   $page_content['middle'] = array(
     '#type' => 'markup', 
-    '#prefix' => '<div class="row">',
+    '#prefix' => '<div class="row-fluid">',
     '#suffix' => '</div>',
   );
   
   $page_content['middle']['education'] = array(
     '#type' => 'markup', 
-    '#prefix' => '<div class="span6">',
+    '#prefix' => '<div class="span7">',
     '#suffix' => '</div>',
   );
   
@@ -219,13 +219,13 @@ function ns_site_professional() {
   /* Bottom row */
   $page_content['bottom'] = array(
     '#type' => 'markup', 
-    '#prefix' => '<div class="row">',
+    '#prefix' => '<div class="row-fluid">',
     '#suffix' => '</div>',
   );
   
   $page_content['bottom']['experience'] = array(
     '#type' => 'markup', 
-    '#prefix' => '<div class="span10">',
+    '#prefix' => '<div class="span12">',
     '#suffix' => '</div>',
   );
   $page_content['bottom']['experience']['header'] = array(
@@ -298,7 +298,7 @@ function ns_site_professional() {
   
   $page_content['linkedin'] = array(
     '#type' => 'markup',
-    '#prefix' => '<div class="span13 pull-right">',
+    '#prefix' => '<div class="span2 pull-right">',
     '#suffix' => '</div>',
     '#markup' => '<a href="http://www.linkedin.com/in/nateswart">View my LinkedIn profile</a>',
   );

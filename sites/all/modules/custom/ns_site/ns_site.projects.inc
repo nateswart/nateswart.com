@@ -38,14 +38,14 @@ function ns_site_projects() {
       // Create a new row
       $page_content[$row_name] = array(
         '#type' => 'markup', 
-        '#prefix' => '<div class="row">',
+        '#prefix' => '<div class="row-fluid">',
         '#suffix' => '</div>',
       );
     }
     
     $page_content[$row_name]['project' . $count] = array(
       '#type' => 'markup', 
-      '#prefix' => '<div class="span5">',
+      '#prefix' => '<div class="span6">',
       '#suffix' => '</div>',
     );
     
