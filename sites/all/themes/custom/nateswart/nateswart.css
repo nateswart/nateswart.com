@@ -5,8 +5,20 @@ body{
   background-color: #000;
 }
 
+/* Fix for'modal scrolls background content' bug
+https://github.com/twitter/bootstrap/issues/5336 */
 body.modal-open {
     overflow: hidden;
+}
+
+/* Fix modal position for 480px devices 
+https://github.com/twitter/bootstrap/issues/3230 */
+@media (max-width: 480px) 
+{
+    .modal.fade.in {
+        top: 10px;
+        max-height: 400px;
+  }
 }
 
 .subpage  {

@@ -68,21 +68,21 @@ function ns_site_professional() {
     
     // Build the mobile dialog for listing all recommendations
     //TODO: Apparently the bootstrap modal doesn't work on mobile?
-    $page_content['top']['recommendation']['modal'] = array(
+    $page_content['modal'] = array(
       '#type' => 'markup',
       '#prefix' => '<div class="modal fade" id="recommendationsModal" tabindex="-1" style="display: none;">',
       '#suffix' => '</div>',
     );
 
-    $page_content['top']['recommendation']['modal']['header'] = array(
+    //TODO: Fix this grossness
+    $page_content['modal']['header'] = array(
       '#type' => 'markup',
       '#prefix' => '<div class="modal-header"><h3>',
-      '#suffix' => '</h3></div>',
+      '#suffix' => '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button></h3></div>',
       '#markup' => t('Recommendations'),
     );
     
-    
-    $page_content['top']['recommendation']['modal']['body'] = array(
+    $page_content['modal']['body'] = array(
       '#type' => 'markup',
       '#prefix' => '<div class="modal-body">',
       '#suffix' => '</div>',
@@ -113,16 +113,16 @@ function ns_site_professional() {
       
       $recommendation[] = array('#markup' => '<hr/>');
       
-      $page_content['top']['recommendation']['modal']['body'][] = $recommendation;
+      $page_content['modal']['body'][] = $recommendation;
     }
     
-    $page_content['top']['recommendation']['modal']['footer'] = array(
+    $page_content['modal']['footer'] = array(
       '#type' => 'markup',
       '#prefix' => '<div class="modal-footer">',
       '#suffix' => '</div>',
     );
     
-    $page_content['top']['recommendation']['modal']['footer']['closebutton'] = array(
+    $page_content['modal']['footer']['closebutton'] = array(
       '#type' => 'markup',
       '#prefix' => '<button class="btn btn-inverse" data-dismiss="modal">',
       '#suffix' => '</button>',
