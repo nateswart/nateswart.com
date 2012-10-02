@@ -21,6 +21,10 @@ https://github.com/twitter/bootstrap/issues/3230 */
   }
 }
 
+h4 {
+  margin-top: 0px;
+}
+
 .ns_hero {
   background-color: #ffffff;
   padding: 15px;
