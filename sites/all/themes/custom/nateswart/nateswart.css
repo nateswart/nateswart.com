@@ -5,6 +5,10 @@ body{
   background-color: #000;
 }
 
+body.modal-open {
+    overflow: hidden;
+}
+
 .subpage  {
   background-color: #fff;
   top: 100px;
