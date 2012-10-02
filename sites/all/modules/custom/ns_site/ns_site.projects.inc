@@ -8,8 +8,8 @@ function ns_site_projects() {
   
   $page_content['intro'] = array(
     '#type' => 'markup', 
-    '#prefix' => '<div>',
-    '#suffix' => '</div>',
+    '#prefix' => '<p class="lead">',
+    '#suffix' => '</p>',
     '#markup' => t("A collection of some of the recent projects I've worked on:"),
   );
   
