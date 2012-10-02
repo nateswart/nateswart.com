@@ -254,7 +254,8 @@ function ns_site_professional() {
     );
     
     $employer_name = $employers[$job->field_employer_nid]->title;
-        
+    $employer_website = $employers[$job->field_employer_nid]->field_website_url;
+    
     $job_entry['info']['intro'] = array(
       '#type' => 'markup', 
       '#prefix' => '<h4>',
@@ -277,7 +278,7 @@ function ns_site_professional() {
       '#type' => 'markup', 
       '#prefix' => '<p class="lead"><small>',
       '#suffix' => '</small></p>',
-      '#markup' => $employer_name . '<br>' . $start_date . ' - ' . $end_date,
+      '#markup' => l($employer_name, $employer_website) . '<br>' . $start_date . ' - ' . $end_date,
     );
     
 
@@ -415,6 +416,10 @@ function ns_site_professional_getemployers() {
     ->fields('n', array('nid', 'title'))
     ->condition('type', 'employer')
     ->condition('status', 1);
+    
+  // Website
+  $query->join('field_data_field_website', 'website', 'n.nid = website.entity_id');
+  $query->addfield('website', 'field_website_url');
   
   $results = $query->execute();
   $records = $results->fetchAllAssoc('nid');
