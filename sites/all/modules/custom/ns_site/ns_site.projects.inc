@@ -27,71 +27,144 @@ function ns_site_projects() {
 
   $results = $query->execute();
   $projects = $results->fetchAllAssoc('nid');
+  $projects = array_values($projects);
   
   $count = 0;
   $row_num = 0;
   $row_name = 'row' . $row_num;
   
-  foreach($projects as $project) {
+  // Process first 2 items in highlighted row
+  $page_content[$row_name] = array(
+    '#type' => 'markup', 
+    '#prefix' => '<div class="row-fluid">',
+    '#suffix' => '</div>',
+  );
+  
+  if(count($projects) > 1) {
+    $page_content[$row_name][] = ns_site_project_createproject(
+      array(
+        'class' => 'span6',
+        'count' => 0,
+        'title' => $projects[0]->title,
+        'info' => $projects[0]->field_short_description_value,
+        'nid' => $projects[0]->nid,
+        'imgurl' => $projects[0]->uri, 
+      ));
+  }
+  
+  if(count($projects) > 2) { 
+    $page_content[$row_name][] = ns_site_project_createproject(
+    array(
+      'class' => 'span6',
+      'count' => 1,
+      'title' => $projects[1]->title,
+      'info' => $projects[1]->field_short_description_value,
+      'nid' => $projects[1]->nid,
+    ));
+  }
+  
+  $page_content[] = array('#markup' => '<hr>');
+ 
+  // Process all other projects 3 in a row
+  for($i=0; $i<count($projects)-2; $i++) {
     
-    if($count % 2 == 0) {
+    $curr = $i + 2;
+    
+    if($i % 3 == 0) {
       // Create a new row
+      $row_num++;
+      $row_name = 'row' . $row_num;
       $page_content[$row_name] = array(
         '#type' => 'markup', 
         '#prefix' => '<div class="row-fluid">',
         '#suffix' => '</div>',
       );
+      $count++;
     }
     
-    $page_content[$row_name]['project' . $count] = array(
-      '#type' => 'markup', 
-      '#prefix' => '<div class="span6">',
-      '#suffix' => '</div>',
-    );
+    $page_content[$row_name][] = ns_site_project_createproject(
+    array(
+      'class' => 'span4',
+      'count' => $curr,
+      'title' => $projects[$curr]->title,
+      'info' => $projects[$curr]->field_short_description_value,
+      'nid' => $projects[$curr]->nid,
+    ));
+  }
     
+  return $page_content;
+}
+
+
+function ns_site_project_createproject($data) {
+  $retval = array(
+    '#type' => 'markup', 
+    '#prefix' => '<div class="' . $data['class'] . '">',
+    '#suffix' => '</div>',
+  );
+  
+  $retval['title'] = array(
+    '#type' => 'markup', 
+    '#prefix' => '<h4>',
+    '#suffix' => '</h4>',
+    '#markup' => $data['title'],
+  );
+  
+  // Special case the larger display
+  if('span6' == $data['class']) {
+    $retval['title']['#prefix'] = '<h2>';
+    $retval['title']['#suffix'] = '</h2>';
+    
+    if(isset($data['imgurl'])) {
+      $img = image_style_url('thumbnail', $data['imgurl']);
+      $retval['img'] = array(
+        '#type' => 'markup',
+        '#markup' => '<img src="' . $img .'" class="pull-right img-rounded img-project">', 
+      ); 
+      
+      
+      $img;
+    }
+  }
+  
+  $retval['info'] = array(
+    '#type' => 'markup', 
+    '#prefix' => '<p>',
+    '#suffix' => '</p>',
+    '#markup' => $data['info'],
+  );
+  
+  // Special case the larger display
+  if('span6' == $data['class']) {
+    $retval['info']['#prefix'] = '<p class="lead">';
+  }
+  
+  /*
+  if(isset($project->uri)) {
+    $imgurl = image_style_url('thumbnail', $project->uri);
     $page_content[$row_name]['project' . $count]['title'] = array(
       '#type' => 'markup', 
       '#prefix' => '<h2>',
       '#suffix' => '</h2>',
       '#markup' => $project->title,
     );
-  
-    $page_content[$row_name]['project' . $count]['info'] = array(
-      '#type' => 'markup', 
-      '#prefix' => '<p class="lead">',
-      '#suffix' => '</p>',
-      '#markup' => $project->field_short_description_value,
-    );
-    
-    if(isset($project->uri)) {
-      $imgurl = image_style_url('thumbnail', $project->uri);
-      $page_content[$row_name]['project' . $count]['title'] = array(
-        '#type' => 'markup', 
-        '#prefix' => '<h2>',
-        '#suffix' => '</h2>',
-        '#markup' => $project->title,
-      );
-    }
-    
-    $path = 'node/' . $project->nid;
-    if(drupal_lookup_path('alias', $path)) {
-      $path = drupal_lookup_path('alias', $path);
-    }
-    
-    $page_content[$row_name]['project' . $count]['more'] = array(
-      '#type' => 'markup', 
-      '#prefix' => '<p>',
-      '#suffix' => '</p>',
-      '#markup' => '<a class="btn btn-small" href="' . $path . '">View details »</a>',
-    );
-    
-    if($count % 2 != 0) {
-      $row_num++;
-      $row_name = 'row' . $row_num;
-    }
-    
-    $count++;
   }
   
-  return $page_content;
+  $path = 'node/' . $project->nid;
+  if(drupal_lookup_path('alias', $path)) {
+    $path = drupal_lookup_path('alias', $path);
+  }
+  */
+  
+  $path = drupal_get_path_alias('node/' . $data['nid']);
+  
+  $retval['more'] = array(
+    '#type' => 'markup', 
+    '#prefix' => '<p>',
+    '#suffix' => '</p>',
+    '#markup' => '<a class="btn btn-small btn-project" href="' . $path . '">View details »</a>',
+  );
+
+  
+  return $retval;
 }
