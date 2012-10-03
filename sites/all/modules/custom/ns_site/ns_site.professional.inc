@@ -17,7 +17,7 @@ function ns_site_professional() {
     '#type' => 'markup', 
     '#prefix' => '<div class="lead span5">',
     '#suffix' => '</div>',
-    '#markup' =>  t('I am a software engineer focused on open source web-based technologies.'),
+    '#markup' =>  t('I am a software engineer focused on open source web-based technologies - specifically Drupal, Wordpress, PHP, MySQL, JavaScript, and XML.'),
   );
   
   //TODO: Get tags for overview
@@ -281,9 +281,6 @@ function ns_site_professional() {
       '#markup' => l($employer_name, $employer_website) . '<br>' . $start_date . ' - ' . $end_date,
     );
     
-
-
-    
     //TODO: Add location display
       
     $tasks = ns_site_professional_getjobtasks($job->nid);
@@ -307,6 +304,13 @@ function ns_site_professional() {
     );
         
     $page_content['bottom']['experience'][] = $job_entry;
+    
+    $page_content['linkedin'] = array(
+     '#type' => 'markup', 
+      '#prefix' => '<a href="http://www.linkedin.com/in/nateswart" class="linkedin">',
+      '#suffix' => '</a>',
+      '#markup' => t('Connect on LinkedIn'),
+    );
   }
  
   return $page_content; 
