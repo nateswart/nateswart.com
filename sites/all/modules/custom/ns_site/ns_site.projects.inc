@@ -60,6 +60,7 @@ function ns_site_projects() {
       'title' => $projects[1]->title,
       'info' => $projects[1]->field_short_description_value,
       'nid' => $projects[1]->nid,
+      'imgurl' => $projects[1]->uri,
     ));
   }
   
