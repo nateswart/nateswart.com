@@ -9,6 +9,14 @@
  */
 function resume_content_types_node_info() {
   $items = array(
+    'education' => array(
+      'name' => t('Education'),
+      'base' => 'node_content',
+      'description' => '',
+      'has_title' => '1',
+      'title_label' => t('School name'),
+      'help' => '',
+    ),
     'employer' => array(
       'name' => t('Employer'),
       'base' => 'node_content',
