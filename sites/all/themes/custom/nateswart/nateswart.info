@@ -11,5 +11,6 @@ stylesheets[all][] = bootstrap/css/bootstrap.css
 stylesheets[all][] = bootstrap/css/bootstrap-responsive.css
 stylesheets[all][] = css-social-buttons/social-buttons.css
 stylesheets[all][] = nateswart.css
+stylesheets[print][] = print.css
 
 scripts[] = bootstrap/js/bootstrap.js

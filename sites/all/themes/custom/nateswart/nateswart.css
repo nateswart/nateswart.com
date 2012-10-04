@@ -35,6 +35,14 @@ div>h4 {
   margin-bottom: 50px;
 }
 
+#resumetext,
+#resumecontactinfo,
+#drupalmessage {
+  display: none;
+}
+
+
+
 .jobexperience {
   border-bottom: 1px solid #eeeeee;
   margin-bottom: 10px;
