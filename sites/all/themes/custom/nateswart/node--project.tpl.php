@@ -1,3 +1,8 @@
+/**
+* @file
+* Theme implementation for a project node
+*/
+
 <h2><?php print $node->title; ?></h2>
 
 <div class="row-fluid">

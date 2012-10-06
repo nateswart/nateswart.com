@@ -5,7 +5,7 @@
  */
 function nateswart_js_alter(&$javascript) {
   // Replace Drupal's built-in jQuery with the version required by Twitter Bootstrap
-  $javascript['misc/jquery.js']['data'] = drupal_get_path('theme', 'nateswart').'/js/jquery.js';
+  $javascript['misc/jquery.js']['data'] = drupal_get_path('theme', 'nateswart') . '/js/jquery.js';
 }
 
 /**
@@ -39,7 +39,7 @@ function nateswart_form_contact_site_form_alter(&$form, &$form_state, $form_id) 
  */
 function nateswart_css_alter(&$css) { 
   // Remove all default styles
-  unset($css[drupal_get_path('module','system').'/system.theme.css']); 
+  unset($css[drupal_get_path('module', 'system') . '/system.theme.css']); 
 }
 
 /**
@@ -51,7 +51,7 @@ function nateswart_get_display_title() {
   $retval = '';
   $trail = menu_get_active_trail();
   
-  if(isset($trail[1]['link_title'])) {
+  if (isset($trail[1]['link_title'])) {
     $retval = $trail[1]['link_title'];
   }
   return $retval;

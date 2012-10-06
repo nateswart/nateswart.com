@@ -1,3 +1,8 @@
+/**
+* @file
+* Theme implementation for the front page
+*/
+
 <?php include_once('navbar.inc');?>
 
 <div class="container">

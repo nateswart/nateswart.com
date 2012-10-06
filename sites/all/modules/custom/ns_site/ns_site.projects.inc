@@ -1,8 +1,12 @@
 <?php
 
 /**
- * Creates the projects page
- */
+* @file
+* Creates the 'projects' page
+*
+*/
+
+
 function ns_site_projects() {
   $page_content = array();
   
@@ -40,7 +44,7 @@ function ns_site_projects() {
     '#suffix' => '</div>',
   );
   
-  if(count($projects) > 1) {
+  if (count($projects) > 1) {
     $page_content[$row_name][] = ns_site_project_createproject(
       array(
         'class' => 'span6',
@@ -52,7 +56,7 @@ function ns_site_projects() {
       ));
   }
   
-  if(count($projects) > 2) { 
+  if (count($projects) > 2) { 
     $page_content[$row_name][] = ns_site_project_createproject(
     array(
       'class' => 'span6',
@@ -67,11 +71,11 @@ function ns_site_projects() {
   $page_content[] = array('#markup' => '<hr>');
  
   // Process all other projects 3 in a row
-  for($i=0; $i<count($projects)-2; $i++) {
+  for ($i=0; $i<count($projects)-2; $i++) {
     
     $curr = $i + 2;
     
-    if($i % 3 == 0) {
+    if ($i % 3 == 0) {
       // Create a new row
       $row_num++;
       $row_name = 'row' . $row_num;
@@ -112,15 +116,15 @@ function ns_site_project_createproject($data) {
   );
   
   // Special case the larger display
-  if('span6' == $data['class']) {
+  if ('span6' == $data['class']) {
     $retval['title']['#prefix'] = '<h2>';
     $retval['title']['#suffix'] = '</h2>';
     
-    if(isset($data['imgurl'])) {
+    if (isset($data['imgurl'])) {
       $img = image_style_url('thumbnail', $data['imgurl']);
       $retval['img'] = array(
         '#type' => 'markup',
-        '#markup' => '<img src="' . $img .'" class="pull-right img-rounded img-project">', 
+        '#markup' => '<img src="' . $img . '" class="pull-right img-rounded img-project">', 
       ); 
       
       
@@ -136,26 +140,9 @@ function ns_site_project_createproject($data) {
   );
   
   // Special case the larger display
-  if('span6' == $data['class']) {
+  if ('span6' == $data['class']) {
     $retval['info']['#prefix'] = '<p class="lead">';
   }
-  
-  /*
-  if(isset($project->uri)) {
-    $imgurl = image_style_url('thumbnail', $project->uri);
-    $page_content[$row_name]['project' . $count]['title'] = array(
-      '#type' => 'markup', 
-      '#prefix' => '<h2>',
-      '#suffix' => '</h2>',
-      '#markup' => $project->title,
-    );
-  }
-  
-  $path = 'node/' . $project->nid;
-  if(drupal_lookup_path('alias', $path)) {
-    $path = drupal_lookup_path('alias', $path);
-  }
-  */
   
   $path = drupal_get_path_alias('node/' . $data['nid']);
   

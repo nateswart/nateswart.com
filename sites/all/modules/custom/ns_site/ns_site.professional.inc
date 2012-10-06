@@ -1,6 +1,13 @@
 <?php
 
 /**
+* @file
+* Builds the 'professional' page
+*
+*/
+
+
+/**
  * Creates the professional page
  */
 function ns_site_professional() {
@@ -47,7 +54,7 @@ function ns_site_professional() {
   
   $recommendations = ns_site_professional_getrecommendations();
   
-  if($recommendations) {
+  if ($recommendations) {
     //TODO: Need to move this client-side if I expect it to work after heavy caching
     $featured_id = array_rand($recommendations, 1);
     
@@ -103,7 +110,7 @@ function ns_site_professional() {
       '#suffix' => '</div>',
     );
     
-    foreach($recommendations as $rec) {
+    foreach ($recommendations as $rec) {
       $recommendation = array(
         '#type' => 'markup',
         '#prefix' => '<div>',
@@ -173,7 +180,7 @@ function ns_site_professional() {
   //TODO: I need to rethink this education section
   $education = ns_site_professional_geteducation();
 
-  foreach($education as $edu) {
+  foreach ($education as $edu) {
     
     $edu_entry = array(
       '#type' => 'markup',
@@ -197,7 +204,7 @@ function ns_site_professional() {
     );
     
     $details = array();
-    foreach($edu->field_details[$edu->language] as $detail) {
+    foreach ($edu->field_details[$edu->language] as $detail) {
       $details[] = $detail['safe_value'];
     }
     
@@ -255,7 +262,7 @@ function ns_site_professional() {
   $employers = ns_site_professional_getemployers();
   $experience = ns_site_professional_getexperience();
   
-  foreach($experience as $job) {
+  foreach ($experience as $job) {
     $job_entry = array(
       '#type' => 'markup', 
       '#prefix' => '<div class="span11 jobexperience">',
@@ -285,7 +292,7 @@ function ns_site_professional() {
     $end_date = new DateTime($job->field_dates_value2);
     $end_date = $end_date->format('F Y');
     
-    if($start_date === $end_date) {
+    if ($start_date === $end_date) {
       $end_date = t('Current');
     }
     
@@ -302,8 +309,8 @@ function ns_site_professional() {
     
     $task_list = array();
     
-    foreach($tasks as $task) {
-      if($task->field_project_nid) {
+    foreach ($tasks as $task) {
+      if ($task->field_project_nid) {
         $task_list[] = l($task->title, 'node/' . $task->field_project_nid);
       }
       else {
@@ -421,7 +428,7 @@ function ns_site_professional_getorgs() {
   
   $orgs = array();
   
-  foreach($records as $group) {
+  foreach ($records as $group) {
     $link = l($group->field_website_title, $group->field_website_url);
     $note = t('<small class="muted">(@note)</small>', array('@note' => $group->field_note_value));
     $orgs[] = $link . ' ' . $note;

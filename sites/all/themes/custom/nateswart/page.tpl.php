@@ -1,3 +1,8 @@
+/**
+* @file
+* Theme implementation for a page
+*/
+
 <?php 
 
 include_once('navbar.inc');?>

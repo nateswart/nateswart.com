@@ -6,17 +6,17 @@
 function ns_site_menu() {
   $items = array();
   
-  $items['projects'] = array (
+  $items['projects'] = array(
     'type' => MENU_CALLBACK,
-    'title' => t('Projects'),
+    'title' => 'Projects',
     'page callback' => 'ns_site_projects',
     'access arguments' => array('access content'),
     'file' => 'ns_site.projects.inc',
   );
  
-  $items['professional'] = array (
+  $items['professional'] = array(
     'type' => MENU_CALLBACK,
-    'title' => t('Professional'),
+    'title' => 'Professional',
     'page callback' => 'ns_site_professional',
     'access arguments' => array('access content'),
     'file' => 'ns_site.professional.inc',

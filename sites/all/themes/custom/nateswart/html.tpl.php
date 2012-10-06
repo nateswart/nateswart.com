@@ -1,3 +1,8 @@
+/**
+* @file
+* Theme implementation for the overall html layout
+*/
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
